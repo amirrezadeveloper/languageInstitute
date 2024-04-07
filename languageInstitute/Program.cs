@@ -1,10 +1,15 @@
 using languageInstitute;
+using languageInstitute.Context;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+string connectionString = "";
+builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(connectionString));
 
 builder.Services.RegisterPresentationServices();
 
