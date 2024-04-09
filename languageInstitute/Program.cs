@@ -8,10 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-string connectionString = "";
+string connectionString = "Data Source=nanaga-parbat.liara.cloud,32305;Database=languageinstituteDb;User Id=sa;Password=w0UqMWHS0vl7XQSfHhqyttF7;encrypt=false;Trust Server Certificate=true;";
+
 builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(connectionString));
 
 builder.Services.RegisterPresentationServices();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
