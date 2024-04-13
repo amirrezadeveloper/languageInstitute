@@ -1,12 +1,27 @@
 using languageInstitute;
 using languageInstitute.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+
+var configurationBuilder = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true)
+        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+var configuration = configurationBuilder.Build();
+
+//IOptions
+//IOptionsSnapshot
+//IOptionsMonitor
+
+builder.Services.Configure<MySettings>(configuration.GetSection("MySettings"));
 
 string connectionString = "Data Source=nanaga-parbat.liara.cloud,32305;Database=languageinstituteDb;User Id=sa;Password=w0UqMWHS0vl7XQSfHhqyttF7;encrypt=false;Trust Server Certificate=true;";
 
