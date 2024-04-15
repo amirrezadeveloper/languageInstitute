@@ -8,7 +8,8 @@ public class StudentProfile: Profile
 {
     public StudentProfile()
     {
-        CreateMap<StudentDto, Student>();
+        CreateMap<AddStudentDto, Student>();
+        CreateMap<UpdatedStudentDto, Student>();
         CreateMap<TeacherDto, Teacher>();
     }
 }

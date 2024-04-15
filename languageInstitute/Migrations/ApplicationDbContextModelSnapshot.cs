@@ -17,7 +17,8 @@ namespace languageInstitute.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0-preview.2.24128.4")
+                .HasDefaultSchema("Base")
+                .HasAnnotation("ProductVersion", "8.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -51,7 +52,8 @@ namespace languageInstitute.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("NationalCode")
                         .IsRequired()
@@ -61,9 +63,12 @@ namespace languageInstitute.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_Base_Student");
 
-                    b.ToTable("Students");
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+
+                    b.ToTable("Students", "Base");
                 });
 
             modelBuilder.Entity("languageInstitute.Models.Teacher", b =>
@@ -103,7 +108,7 @@ namespace languageInstitute.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teachers");
+                    b.ToTable("Teachers", "Base");
                 });
 #pragma warning restore 612, 618
         }

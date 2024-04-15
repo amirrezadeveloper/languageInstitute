@@ -1,6 +1,9 @@
 ﻿using languageInstitute.Context;
 using languageInstitute.Contract;
+using languageInstitute.Dtos;
 using languageInstitute.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 
 namespace languageInstitute.Business;
 
@@ -8,29 +11,52 @@ public class StudentBusiness : IStudentBusiness
 {
     private readonly ApplicationDbContext _context;
     public StudentBusiness(ApplicationDbContext context) => _context = context;
-    
 
-    //static public List<Student> Students = new List<Student>()
-    //{
-    //    new Student() { Id = 1, Name = "Amir", BirthDate = "1376/07/03", NationalCode = "0020429355", PhoneNumber = "09102305286" },
-    //    new Student() { Id = 2, Name = "Reza", BirthDate = "1376/07/03", NationalCode = "0151614285", PhoneNumber = "09356671110" },
-    //};
-    public bool AddStudent(Student student)
+
+
+    public async Task<Student> GetStudentById(int id)
     {
-        _context.Students.Add(student);
-        _context.SaveChanges();
+        return await _context.Students.FindAsync(id);
+    }
+
+    public async Task<List<Student>> GetStudents()
+    {
+        var students =  await _context.Students.ToListAsync();
+        return students;    
+    }
+
+    public async Task<bool> AddStudent(Student student)
+    {
+        
+        await _context.Students.AddAsync(student);
+        await _context.SaveChangesAsync();
         return true;
     }
 
-    public Student GetStudentByNationalCode(string NationalCode)
+    public interface IStudentBusiness
     {
-        // var student = Students.Where(x => x.NationalCode == NationalCode).FirstOrDefault();
-        var student = _context.Students.Where(x => x.NationalCode == NationalCode).FirstOrDefault();
-        return student;
+        Task<bool> UpdateStudent(int id, UpdatedStudentDto updatedStudentDto);
     }
 
-    public List<Student> GetStudents()
+    public async Task<bool> UpdateStudent(int id, UpdatedStudentDto updatedStudentDto)
     {
-        return _context.Students.ToList();
+        var existingStudent = await _context.Students.FindAsync(id);
+        if (existingStudent == null)
+            return false;
+
+        existingStudent.FullName = updatedStudentDto.FullName;
+        existingStudent.BirthDate = updatedStudentDto.BirthDate;
+        existingStudent.PhoneNumber = updatedStudentDto.PhoneNumber;
+        existingStudent.NationalCode = updatedStudentDto.NationalCode;
+        existingStudent.Address = updatedStudentDto.Address;
+        existingStudent.FathersJob = updatedStudentDto.FathersJob;
+        existingStudent.EducationLevel = updatedStudentDto.EducationLevel;
+
+        await _context.SaveChangesAsync();
+        return true;
     }
+
+
+
+
 }

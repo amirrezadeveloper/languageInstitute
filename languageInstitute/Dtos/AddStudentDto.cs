@@ -21,8 +21,18 @@ namespace languageInstitute.Dtos
            RuleFor(x => x.FullName)
             .NotNull()
             .NotEmpty()
+            .NotEqual("")
             .MinimumLength(2)
-            .WithMessage("Please enter valid name");
+            .MaximumLength(250)
+            .WithMessage("enter valid name");
+
+            RuleFor(x => x.BirthDate)
+                .NotEmpty()
+                .NotNull()
+                .MinimumLength(2)
+                .MaximumLength(10)
+                .WithMessage("enter valid birthdate");
+
         }
         
     }
