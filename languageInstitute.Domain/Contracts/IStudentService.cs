@@ -1,9 +1,9 @@
-﻿using languageInstitute.Dtos;
-using languageInstitute.Models;
+﻿using languageInstitute.Domain.Entities;
 
-namespace languageInstitute.Contract;
 
-public interface IStudentBusiness
+namespace languageInstitute.Domain.Contracts;
+
+public interface IStudentService
 {
     Task<Student> GetStudentById(int id);
     Task<List<Student>> GetStudents();

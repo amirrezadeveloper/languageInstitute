@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using languageInstitute.Contract;
+using languageInstitute.Domain.Entities;
 using languageInstitute.Dtos;
-using languageInstitute.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Net.Mime;
 
 namespace languageInstitute.Controllers.V1;

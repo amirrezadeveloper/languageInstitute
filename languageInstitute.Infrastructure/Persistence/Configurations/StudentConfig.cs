@@ -1,8 +1,9 @@
-﻿using languageInstitute.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using languageInstitute.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
-namespace languageInstitute.DatabaseConfigurations;
+
+namespace languageInstitute.Infrastructure.Persistence.Configurations;
 
 public class StudentConfig : IEntityTypeConfiguration<Student>
 {

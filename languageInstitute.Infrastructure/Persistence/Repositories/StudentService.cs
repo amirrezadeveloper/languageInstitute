@@ -1,33 +1,33 @@
-﻿using languageInstitute.Context;
-using languageInstitute.Contract;
-using languageInstitute.Dtos;
-using languageInstitute.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using languageInstitute.Domain.Contracts;
+using languageInstitute.Domain.Entities;
+using languageInstitute.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace languageInstitute.Business;
 
-public class StudentBusiness : IStudentBusiness
+
+namespace languageInstitute.Infrastructure.Persistence.Repositories;
+
+public class StudentService: IStudentService
 {
     private readonly ApplicationDbContext _context;
-    public StudentBusiness(ApplicationDbContext context) => _context = context;
+    public StudentService(ApplicationDbContext context) => _context = context;
 
 
 
-    public async Task<Student> GetStudentById(int id)
+    public async Task<Domain.Entities.Student> GetStudentById(int id)
     {
         return await _context.Students.FindAsync(id);
     }
 
     public async Task<List<Student>> GetStudents()
     {
-        var students =  await _context.Students.ToListAsync();
-        return students;    
+        var students = await _context.Students.AsNoTracking().ToListAsync();
+        return students;
     }
 
     public async Task<bool> AddStudent(Student student)
     {
-        
+
         await _context.Students.AddAsync(student);
         await _context.SaveChangesAsync();
         return true;
@@ -55,8 +55,3 @@ public class StudentBusiness : IStudentBusiness
         await _context.SaveChangesAsync();
         return true;
     }
-
-
-
-
-}

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using languageInstitute.Domain.Entities;
 using languageInstitute.Dtos;
-using languageInstitute.Models;
 
 namespace languageInstitute.Profiles;
 

@@ -1,4 +1,6 @@
-﻿namespace languageInstitute.Contract;
+﻿
+
+namespace languageInstitute.Domain.Contracts;
 
 public abstract class BaseEntity<T>
 {

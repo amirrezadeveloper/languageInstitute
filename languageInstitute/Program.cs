@@ -1,7 +1,7 @@
 using languageInstitute;
-using languageInstitute.Context;
-using Microsoft.EntityFrameworkCore;
-using System.Runtime;
+using languageInstitute.Application;
+using languageInstitute.Infrastructure;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.RegisterPresentationServices();
+var configurationBuilder = new ConfigurationBuilder()
+     .SetBasePath(Directory.GetCurrentDirectory())
+     .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true)
+     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+var configuration = configurationBuilder.Build();
+
+builder.Services
+    .RegisterApplicationServices()
+    .RegisterInfrastructureServices(configuration.GetConnectionString("languageInstituteDatabase"))
+    .RegisterPresentationServices();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

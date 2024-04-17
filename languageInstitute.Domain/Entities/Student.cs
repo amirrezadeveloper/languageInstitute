@@ -1,6 +1,7 @@
-﻿using languageInstitute.Contract;
+﻿
+using languageInstitute.Domain.Contracts;
 
-namespace languageInstitute.Models;
+namespace languageInstitute.Domain.Entities;
 
 public class Student: BaseEntity<int>
 {

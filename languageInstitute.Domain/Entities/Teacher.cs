@@ -1,6 +1,8 @@
-﻿using languageInstitute.Contract;
+﻿
 
-namespace languageInstitute.Models;
+using languageInstitute.Domain.Contracts;
+
+namespace languageInstitute.Domain.Entities;
 
 public class Teacher: BaseEntity<int>
 {

@@ -1,8 +1,9 @@
-﻿using languageInstitute.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using languageInstitute.Domain.Entities;
 
-namespace languageInstitute.Context;
+
+namespace languageInstitute.Infrastructure.Context;
 
 public class ApplicationDbContext : DbContext
 {
