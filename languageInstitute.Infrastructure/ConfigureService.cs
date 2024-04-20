@@ -1,4 +1,6 @@
-﻿using languageInstitute.Infrastructure.Context;
+﻿using languageInstitute.Application.Contracts;
+using languageInstitute.Infrastructure.Context;
+using languageInstitute.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +16,10 @@ namespace languageInstitute.Infrastructure
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
+            services.AddScoped<IStudentService, StudentService>();
+
             return services;
         }
     }
 }
+

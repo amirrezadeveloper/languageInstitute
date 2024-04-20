@@ -1,4 +1,4 @@
-﻿namespace languageInstitute.Dtos;
+﻿namespace languageInstitute.Application.Dtos;
 
 public class TeacherDto
 {

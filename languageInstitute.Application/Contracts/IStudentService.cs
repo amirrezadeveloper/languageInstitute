@@ -1,7 +1,8 @@
-﻿using languageInstitute.Domain.Entities;
+﻿using languageInstitute.Application.Dtos;
+using languageInstitute.Domain.Entities;
 
 
-namespace languageInstitute.Domain.Contracts;
+namespace languageInstitute.Application.Contracts;
 
 public interface IStudentService
 {

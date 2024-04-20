@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\languageInstitute.Application\languageInstitute.Application.csproj" />
     <ProjectReference Include="..\languageInstitute.Domain\languageInstitute.Domain.csproj" />
   </ItemGroup>
 

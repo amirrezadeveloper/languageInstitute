@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace languageInstitute.Dtos;
+namespace languageInstitute.Application.Dtos;
 
 public class UpdatedStudentDto
 {

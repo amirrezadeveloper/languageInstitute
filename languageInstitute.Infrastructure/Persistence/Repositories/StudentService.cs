@@ -1,4 +1,5 @@
-﻿using languageInstitute.Domain.Contracts;
+﻿using languageInstitute.Application.Contracts;
+using languageInstitute.Application.Dtos;
 using languageInstitute.Domain.Entities;
 using languageInstitute.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace languageInstitute.Infrastructure.Persistence.Repositories;
 
-public class StudentService: IStudentService
+public class StudentService : IStudentService
 {
     private readonly ApplicationDbContext _context;
     public StudentService(ApplicationDbContext context) => _context = context;
@@ -55,3 +56,4 @@ public class StudentService: IStudentService
         await _context.SaveChangesAsync();
         return true;
     }
+}

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using languageInstitute.Domain.Entities;
-using languageInstitute.Dtos;
+using languageInstitute.Application.Dtos;
 
-namespace languageInstitute.Profiles;
+namespace languageInstitute.Application.Profiles;
 
 public class StudentProfile: Profile
 {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using languageInstitute.Contract;
+using languageInstitute.Application.Contracts;
+using languageInstitute.Application.Dtos;
 using languageInstitute.Domain.Entities;
-using languageInstitute.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 
@@ -9,19 +9,19 @@ namespace languageInstitute.Controllers.V1;
 
 public class StudentController : BaseController
 {
-    private readonly IStudentBusiness _studentBusiness;
+    private readonly IStudentService _studentService;
     private readonly IMapper _mapper;
    
-    public StudentController(IStudentBusiness studentBusiness, IMapper mapper)
+    public StudentController(IStudentService studentService, IMapper mapper)
     {
-        _studentBusiness = studentBusiness;
+        _studentService = studentService;
         _mapper = mapper;
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        Student student = await _studentBusiness.GetStudentById(id);
+        Student student = await _studentService.GetStudentById(id);
 
         if (student == null)
             return NotFound();
@@ -32,7 +32,7 @@ public class StudentController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        List<Student> students = await _studentBusiness.GetStudents();
+        List<Student> students = await _studentService.GetStudents();
         if (students is null) return NotFound();    
         return Ok(students);    
     }
@@ -46,7 +46,7 @@ public class StudentController : BaseController
     {
         var student = _mapper.Map<Student>(studentDto);
         student.CreateAt = DateTime.Now;
-        await _studentBusiness.AddStudent(student);
+        await _studentService.AddStudent(student);
 
         return CreatedAtAction(nameof(Get), new { student.NationalCode}, student);
     }
@@ -59,7 +59,7 @@ public class StudentController : BaseController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(int id, [FromBody] UpdatedStudentDto updatedStudentDto)
     {
-        var updateSuccess = await _studentBusiness.UpdateStudent(id, updatedStudentDto);
+        var updateSuccess = await _studentService.UpdateStudent(id, updatedStudentDto);
         if (!updateSuccess)
             return NotFound();
         return Ok();

@@ -16,9 +16,11 @@ var configurationBuilder = new ConfigurationBuilder()
 
 var configuration = configurationBuilder.Build();
 
+string connectionString = configuration.GetConnectionString("languageInstituteDatabase");
+
 builder.Services
     .RegisterApplicationServices()
-    .RegisterInfrastructureServices(configuration.GetConnectionString("languageInstituteDatabase"))
+    .RegisterInfrastructureServices(connectionString)
     .RegisterPresentationServices();
 
 

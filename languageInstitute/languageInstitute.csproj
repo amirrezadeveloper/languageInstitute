@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\languageInstitute.Application\languageInstitute.Application.csproj" />
-    <ProjectReference Include="..\languageInstitute.Domain\languageInstitute.Domain.csproj" />
+    <ProjectReference Include="..\languageInstitute.Infrastructure\languageInstitute.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
