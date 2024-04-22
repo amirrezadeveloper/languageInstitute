@@ -1,6 +1,7 @@
 using languageInstitute;
 using languageInstitute.Application;
 using languageInstitute.Infrastructure;
+using Microsoft.Extensions.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,7 @@ builder.Services.AddControllers();
 var configurationBuilder = new ConfigurationBuilder()
      .SetBasePath(Directory.GetCurrentDirectory())
      .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true)
+     .AddUserSecrets("cb10458b-0d06-4567-8b57-7a123e1950dc")
      .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
 var configuration = configurationBuilder.Build();
