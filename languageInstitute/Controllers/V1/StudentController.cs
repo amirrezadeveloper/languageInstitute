@@ -18,7 +18,7 @@ public class StudentController : BaseController
         _mapper = mapper;
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name = "GetStudent")]
     public async Task<IActionResult> Get(int id)
     {
         Student student = await _studentService.GetStudentById(id);
@@ -37,7 +37,7 @@ public class StudentController : BaseController
         return Ok(students);    
     }
 
-    [Route("")]
+   
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -47,8 +47,10 @@ public class StudentController : BaseController
         var student = _mapper.Map<Student>(studentDto);
         student.CreateAt = DateTime.Now;
         await _studentService.AddStudent(student);
+        
+        //return CreatedAtAction(nameof(Get), new { student.Id}, student);
 
-        return CreatedAtAction(nameof(Get), new { student.NationalCode}, student);
+        return CreatedAtRoute("GetStudent", new { id = student.Id }, studentDto);
     }
 
 

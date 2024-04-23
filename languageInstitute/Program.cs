@@ -1,6 +1,7 @@
 using languageInstitute;
 using languageInstitute.Application;
 using languageInstitute.Infrastructure;
+using languageInstitute.Middlewares;
 using Microsoft.Extensions.Configuration;
 
 
@@ -31,6 +32,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseGlobalException(); 
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

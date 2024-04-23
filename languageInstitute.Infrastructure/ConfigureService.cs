@@ -4,6 +4,8 @@ using languageInstitute.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
 namespace languageInstitute.Infrastructure
@@ -12,9 +14,8 @@ namespace languageInstitute.Infrastructure
     {
         public static IServiceCollection RegisterInfrastructureServices(this IServiceCollection services, string connectionString)
         {
-
-
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("languageInstitute")));
+     
 
             services.AddScoped<IStudentService, StudentService>();
 
