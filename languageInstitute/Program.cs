@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using languageInstitute;
 using languageInstitute.Application;
 using languageInstitute.Infrastructure;
@@ -30,6 +31,18 @@ builder.Services
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var apiVersioningBuilder = builder.Services.AddApiVersioning(o =>
+{
+    o.AssumeDefaultVersionWhenUnspecified = true;
+    o.DefaultApiVersion = new ApiVersion(1, 0);
+    o.ReportApiVersions = true; 
+    o.ApiVersionReader = ApiVersionReader.Combine(
+        new QueryStringApiVersionReader("api-version"),
+        new HeaderApiVersionReader("X-Version"),
+        new MediaTypeApiVersionReader("ver"));
+});
+
 
 var app = builder.Build();
 
