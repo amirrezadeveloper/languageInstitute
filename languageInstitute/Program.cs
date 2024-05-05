@@ -2,8 +2,8 @@ using Asp.Versioning;
 using languageInstitute;
 using languageInstitute.Application;
 using languageInstitute.Infrastructure;
+using languageInstitute.Infrastructure.Identity;
 using languageInstitute.Middlewares;
-using Microsoft.Extensions.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,11 +21,13 @@ var configurationBuilder = new ConfigurationBuilder()
 var configuration = configurationBuilder.Build();
 
 string connectionString = configuration.GetConnectionString("languageInstituteDatabase");
+string userDatabaseConnectionString = configuration.GetConnectionString("UserDatabase");
 
 builder.Services
     .RegisterApplicationServices()
+    .RegisterIdentityInfrastructureServices(builder.Configuration, userDatabaseConnectionString)
     .RegisterInfrastructureServices(connectionString)
-    .RegisterPresentationServices();
+    .RegisterPresentationServices(connectionString);
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -46,7 +48,9 @@ var apiVersioningBuilder = builder.Services.AddApiVersioning(o =>
 
 var app = builder.Build();
 
-app.UseGlobalException(); 
+app.UseGlobalException();
+
+app.MapHealthChecks("/healthz");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -60,5 +64,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//app.UseEndpoints(e =>
+//{
+//    e.MapControllers();
+//    e.MapHealthChecks("/healthz");
+//});
+
 
 app.Run();

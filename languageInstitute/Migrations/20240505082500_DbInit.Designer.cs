@@ -12,8 +12,8 @@ using languageInstitute.Infrastructure.Context;
 namespace languageInstitute.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240423064747_dbInit")]
-    partial class dbInit
+    [Migration("20240505082500_DbInit")]
+    partial class DbInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
