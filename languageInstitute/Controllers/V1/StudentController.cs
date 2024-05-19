@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using languageInstitute.Application.Contracts;
 using languageInstitute.Application.Dtos;
+using languageInstitute.Application.Wrappers;
 using languageInstitute.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
@@ -21,7 +22,7 @@ public class StudentController : BaseController
     [HttpGet("{id}", Name = "GetStudent")]
     public async Task<IActionResult> Get(int id)
     {
-        Student student = await _studentService.GetStudentById(id);
+        Response<Student> student = await _studentService.GetStudentById(id);
 
         if (student == null)
             return NotFound();
@@ -32,7 +33,7 @@ public class StudentController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        List<Student> students = await _studentService.GetStudents();
+        Response<List<Student>> students = await _studentService.GetStudents();
         if (students is null) return NotFound();    
         return Ok(students);    
     }
@@ -61,8 +62,8 @@ public class StudentController : BaseController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(int id, [FromBody] UpdatedStudentDto updatedStudentDto)
     {
-        var updateSuccess = await _studentService.UpdateStudent(id, updatedStudentDto);
-        if (!updateSuccess)
+        Response<bool> updateSuccess = await _studentService.UpdateStudent(id, updatedStudentDto);
+        if (!updateSuccess.Succeeded)
             return NotFound();
         return Ok();
     }

@@ -1,5 +1,6 @@
 ﻿using languageInstitute.Application.Contracts;
 using languageInstitute.Application.Dtos;
+using languageInstitute.Application.Wrappers;
 using languageInstitute.Domain.Entities;
 using languageInstitute.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
@@ -15,23 +16,24 @@ public class StudentService : IStudentService
 
 
 
-    public async Task<Domain.Entities.Student> GetStudentById(int id)
+    public async Task<Response<Domain.Entities.Student>> GetStudentById(int id)
     {
-        return await _context.Students.FindAsync(id);
+       var student = await _context.Students.SingleOrDefaultAsync(s => s.Id == id); 
+        return new Response<Domain.Entities.Student>(student);   
     }
 
-    public async Task<List<Student>> GetStudents()
-    {
-        var students = await _context.Students.AsNoTracking().ToListAsync();
-        return students;
+    public async Task<Response<List<Student>>> GetStudents()
+    {   
+        var students = await _context.Students.AsNoTracking().ToListAsync(); 
+        return new Response<List<Student>>(students);
     }
 
-    public async Task<bool> AddStudent(Student student)
+    public async Task<Response<bool>> AddStudent(Student student)
     {
 
         await _context.Students.AddAsync(student);
         await _context.SaveChangesAsync();
-        return true;
+        return new Response<bool>(true);
     }
 
     public interface IStudentBusiness
@@ -39,11 +41,11 @@ public class StudentService : IStudentService
         Task<bool> UpdateStudent(int id, UpdatedStudentDto updatedStudentDto);
     }
 
-    public async Task<bool> UpdateStudent(int id, UpdatedStudentDto updatedStudentDto)
+    public async Task<Response<bool>> UpdateStudent(int id, UpdatedStudentDto updatedStudentDto)
     {
         var existingStudent = await _context.Students.FindAsync(id);
         if (existingStudent == null)
-            return false;
+            return new Response<bool>(false);
 
         existingStudent.FullName = updatedStudentDto.FullName;
         existingStudent.BirthDate = updatedStudentDto.BirthDate;
@@ -54,6 +56,6 @@ public class StudentService : IStudentService
         existingStudent.EducationLevel = updatedStudentDto.EducationLevel;
 
         await _context.SaveChangesAsync();
-        return true;
+        return new Response<bool>(true);
     }
 }
