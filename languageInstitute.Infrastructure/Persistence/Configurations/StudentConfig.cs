@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace languageInstitute.Infrastructure.Persistence.Configurations;
 
-public class StudentConfig : IEntityTypeConfiguration<Student>
+public class ClassConfig : IEntityTypeConfiguration<Class>
 {
-    void IEntityTypeConfiguration<Student>.Configure(EntityTypeBuilder<Student> builder)
+    void IEntityTypeConfiguration<Class>.Configure(EntityTypeBuilder<Class> builder)
     {
 
         builder
@@ -15,7 +15,7 @@ public class StudentConfig : IEntityTypeConfiguration<Student>
             .IsClustered()
             .HasName("PK_Base_Student");
         builder
-             .Property(x => x.FullName)
+             .Property(x => x.ClassName)
              .IsRequired()
              .HasMaxLength(250);
     }

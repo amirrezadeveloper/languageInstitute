@@ -17,7 +17,7 @@ namespace languageInstitute.Infrastructure
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("languageInstitute")));
      
 
-            services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IClasstService, StudentService>();
 
             return services;
         }

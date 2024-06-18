@@ -15,6 +15,11 @@ public static class ConfigureService
         services.AddFluentValidationAutoValidation();
         services.AddFluentValidationClientsideAdapters();
 
+        var assembly = typeof(ConfigureService).Assembly;
+
+        services.AddMediatR(configuration =>
+            configuration.RegisterServicesFromAssembly(assembly));
+
         return services;
     }
 }

@@ -15,22 +15,23 @@ namespace languageInstitute.Infrastructure.Identity.Repositories;
 
 public class AuthenticationService : IAuthenticationService
 {
+
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly JWTSettings _jwtSettings;
 
-    public AuthenticationService(
-        UserManager<ApplicationUser> userManager,
+    public AuthenticationService(UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager,
-        SignInManager<ApplicationUser> signInManager,
-        IOptions<JWTSettings> jwtSettings)
+        IOptions<JWTSettings> jwtSettings,
+        SignInManager<ApplicationUser> signInManager)
     {
+        _jwtSettings = jwtSettings.Value;
         _userManager = userManager;
         _roleManager = roleManager;
-        _signInManager = signInManager; 
-        _jwtSettings = jwtSettings.Value;
+        _signInManager = signInManager;
     }
+
 
     public async Task<AuthenticationResponseDto> Login(LoginDto dto)
     {
@@ -77,7 +78,7 @@ public class AuthenticationService : IAuthenticationService
             var result = await _userManager.CreateAsync(user, dto.Password);
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Roles.USER.ToString());
+                await _userManager.AddToRoleAsync(user, Roles.STUDENT.ToString());
                 //var verificationUri = await SendVerificationEmail(user, origin);
                 //TODO: Attach Email Service here and configure it via appsettings
                 //await _emailService.SendAsync(new Application.DTOs.Email.EmailRequest() { From = "mail@codewithmukesh.com", To = user.Email, Body = $"Please confirm your account by visiting this URL {verificationUri}", Subject = "Confirm Registration" });

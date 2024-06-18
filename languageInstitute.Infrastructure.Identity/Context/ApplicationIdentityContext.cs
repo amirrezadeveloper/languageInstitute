@@ -19,7 +19,7 @@ public class ApplicationIdentityContext : IdentityDbContext<ApplicationUser>
 
         builder.HasDefaultSchema("Identity");
 
-        builder.Entity<ApplicationUser>(entity =>
+        builder.Entity<Users>(entity =>
         {
             entity.ToTable(name: "User");
         });

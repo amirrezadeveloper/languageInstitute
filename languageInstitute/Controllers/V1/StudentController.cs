@@ -10,10 +10,10 @@ namespace languageInstitute.Controllers.V1;
 
 public class StudentController : BaseController
 {
-    private readonly IStudentService _studentService;
+    private readonly IClasstService _studentService;
     private readonly IMapper _mapper;
    
-    public StudentController(IStudentService studentService, IMapper mapper)
+    public StudentController(IClasstService studentService, IMapper mapper)
     {
         _studentService = studentService;
         _mapper = mapper;

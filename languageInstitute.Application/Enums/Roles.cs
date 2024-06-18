@@ -2,6 +2,7 @@
 
 public enum Roles : byte
 {
-    USER = 1,
-    ADMIN = 2
+    ADMIN = 1,
+    TEACHER = 2,
+    STUDENT = 3,
 }

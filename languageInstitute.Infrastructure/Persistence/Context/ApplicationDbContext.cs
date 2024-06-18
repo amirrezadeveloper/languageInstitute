@@ -10,8 +10,8 @@ public class ApplicationDbContext : DbContext
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {
     }
-    public DbSet<Teacher> Teachers { get; set; }
-    public DbSet<Student> Students { get; set; }
+    public DbSet<Courses> Courses { get; set; }
+    public DbSet<Class> Classes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

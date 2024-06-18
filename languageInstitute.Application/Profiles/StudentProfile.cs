@@ -10,6 +10,6 @@ public class StudentProfile: Profile
     {
         CreateMap<AddStudentDto, Student>();
         CreateMap<UpdatedStudentDto, Student>();
-        CreateMap<TeacherDto, Teacher>();
+        CreateMap<TeacherDto, Courses>();
     }
 }
